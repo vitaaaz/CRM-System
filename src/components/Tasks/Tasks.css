@@ -1,0 +1,22 @@
+.task-list {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  display: block;
+  padding-left: 0;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 20px;
+  border-radius: 10px;
+  padding-inline: 5px;
+  margin-block: 5px;
+  background-color: #323232;
+}
+
+.status-bar {
+  display: flex;
+  gap: 30px;
+}
