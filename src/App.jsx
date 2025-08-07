@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <h1>Список задач</h1>
+      <h1>Задачи</h1>
       <Tasks />
     </>
   )
