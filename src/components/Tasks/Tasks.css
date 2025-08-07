@@ -1,22 +1,59 @@
+.status-bar {
+  display: flex;
+  max-width: 310px;
+  margin-bottom: 30px;
+}
+.status-button {
+  background-color: transparent;
+  border: none;
+  transition-duration: 0.3s;
+}
+.status-button:focus {
+  text-decoration: underline;
+}
+.status-button:hover {
+  color: gray;
+  cursor: pointer;
+}
+
 .task-list {
-  min-width: 300px;
   display: flex;
   flex-direction: column;
   list-style-type: none;
   display: block;
   padding-left: 0;
 }
+
 li {
+  max-width: 300px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-block: 20px;
   border-radius: 10px;
   padding-inline: 5px;
   margin-block: 5px;
   background-color: #323232;
+  gap: 5px;
+}
+.container {
+  display: flex;
+  gap: 3px;
+  max-width: 300px;
 }
 
-.status-bar {
-  display: flex;
-  gap: 30px;
+.add-button {
+  padding: 5px 5px;
 }
+
+.add-input {
+  min-width: 200px;
+  padding: 5px 5px;
+}
+
+.inner-button {
+  height: 30px;
+}
+
+
+

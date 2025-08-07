@@ -1,18 +1,21 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 
 const AddTask = (props) => {
-  //принимаем функцию загрузки задач в пропс
+  //принимаем функцию загрузки задач из пропса
   const {putTaskList} = props
 
   const [newTask, setNewTask] = useState("")
 
   function handleInput(event) {
-    setNewTask(event.target.value)
+      setNewTask(event.target.value)
   }
 
   function postNewTask() {
-
+    if (!newTask.trim()) {
+      alert("Задача не может быть пустой!");
+      return;
+    }
     const taskData = {
       title: newTask.trim(),
       isDone: false,
@@ -21,7 +24,6 @@ const AddTask = (props) => {
     fetch("https://easydev.club/api/v1/todos",
       {
         method: 'POST',
-        // headers: {"Content-Type": "application/json",},
         body: JSON.stringify(taskData),
       })
       .then(response => response.json())
@@ -40,16 +42,17 @@ const AddTask = (props) => {
   return (
     <div>
       <input
+        className="add-input"
         placeholder="Enter new task..."
         value={newTask}
         onChange={handleInput}
       />
       <button
+        className="add-button"
         type="button"
         onClick={postNewTask}
       >
-        Add
-      </button>
+Add      </button>
     </div>
   );
 };
