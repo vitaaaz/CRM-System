@@ -16,6 +16,17 @@ const AddTask = (props) => {
       alert("Задача не может быть пустой!");
       return;
     }
+
+    if (newTask.length <= 2 ) {
+      alert("Требуется ввести от 2 до 64 символов");
+      return;
+    }
+
+    if (newTask.length > 64 ) {
+      alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${newTask.length}`);
+      return;
+    }
+
     const taskData = {
       title: newTask.trim(),
       isDone: false,
