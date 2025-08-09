@@ -44,6 +44,15 @@ const Tasks = () => {
 
   //сохранение задачи(ред) и отправка на сервер методом put
   function saveTask() {
+    if (editText.length <= 2 ) {
+      alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${editText.length}`);
+      return;
+    }
+    if (editText.length > 64 ) {
+      alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${editText.length}`);
+      return;
+    }
+
     const putTaskData = {
       title: editText.trim(),
       isDone: false,
