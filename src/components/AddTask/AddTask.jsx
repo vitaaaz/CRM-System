@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {addTask} from "../api/api";
 
 
 const AddTask = (props) => {
@@ -8,7 +9,7 @@ const AddTask = (props) => {
   const [newTask, setNewTask] = useState("")
 
   function handleInput(event) {
-      setNewTask(event.target.value)
+    setNewTask(event.target.value)
   }
 
   function postNewTask() {
@@ -17,12 +18,12 @@ const AddTask = (props) => {
       return;
     }
 
-    if (newTask.length <= 2 ) {
+    if (newTask.length <= 2) {
       alert("Требуется ввести от 2 до 64 символов");
       return;
     }
 
-    if (newTask.length > 64 ) {
+    if (newTask.length > 64) {
       alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${newTask.length}`);
       return;
     }
@@ -31,24 +32,16 @@ const AddTask = (props) => {
       title: newTask.trim(),
       isDone: false,
     };
-
-    fetch("https://easydev.club/api/v1/todos",
-      {
-        method: 'POST',
-        body: JSON.stringify(taskData),
-      })
-      .then(response => response.json())
+    //вызов запроса с методом PUT и обработка .then
+    addTask(taskData)
       .then(obj => {
         console.log("Задача добавлена и строка очищена");
         setNewTask("")
         //вызываем функцию, чтобы обновить список с сервера
         if (putTaskList) putTaskList()
-
       })
-      .catch(error => {
-        console.error("Ошибка загрузки данных:", error);
-      });
   }
+
 
   return (
     <div>
@@ -63,7 +56,8 @@ const AddTask = (props) => {
         type="button"
         onClick={postNewTask}
       >
-Add      </button>
+        Add
+      </button>
     </div>
   );
 };

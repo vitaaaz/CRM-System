@@ -2,7 +2,9 @@ import {useState, useEffect} from "react";
 import "./Tasks.css"
 import AddTask from "../AddTask/AddTask";
 import DeleteTask from "../DeleteTask/DeleteTask";
-
+import {fetchTasks} from "../api/api";
+import {checkboxTask} from "../api/api";
+import {saveEditingTask} from "../api/api";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
@@ -17,23 +19,20 @@ const Tasks = () => {
     completed: "filter=completed",
   }
 
-  //загрузка задач с сервера
-  const loadTasks = () => {
-    fetch(`https://easydev.club/api/v1/todos?${status}`,
-      {method: 'GET'},)
-      .then(response => response.json())
+  //загрузка задач после запроса с сервера
+  function loadTasks() {
+    fetchTasks(status)
       .then(obj => {
         console.log(obj.data);
         setTasks(obj.data);
         setInfo(obj.info)
       })
-      .catch(error => {
-        console.error("Ошибка загрузки данных:", error);
-      });
   }
+
   useEffect(() => {
-    loadTasks();
+    loadTasks()
   }, [status])
+
 
   //реакция на нажатие кнопки редактировать
   function editClick(task) {
@@ -44,11 +43,11 @@ const Tasks = () => {
 
   //сохранение задачи(ред) и отправка на сервер методом put
   function saveTask() {
-    if (editText.length <= 2 ) {
+    if (editText.length <= 2) {
       alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${editText.length}`);
       return;
     }
-    if (editText.length > 64 ) {
+    if (editText.length > 64) {
       alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${editText.length}`);
       return;
     }
@@ -58,12 +57,7 @@ const Tasks = () => {
       isDone: false,
     };
 
-    fetch(`https://easydev.club/api/v1/todos/${editIdTask}`,
-      {
-        method: 'PUT',
-        body: JSON.stringify(putTaskData),
-      })
-      .then(response => response.json())
+    saveEditingTask(editIdTask, putTaskData)
       .then(data => {
         loadTasks()
         setEditIdTask(null)
@@ -74,17 +68,11 @@ const Tasks = () => {
 
   //управление чекбоксом
   function handleToggle(title, id, isDone) {
-    const TaskStatus = {
+    const taskStatus = {
       title: title.trim(),
       isDone: !isDone,
     };
-
-    fetch(`https://easydev.club/api/v1/todos/${id}`,
-      {
-        method: 'PUT',
-        body: JSON.stringify(TaskStatus),
-      })
-      .then(response => response.json())
+    checkboxTask(id, taskStatus)
       .then(data => {
         loadTasks()
       })
@@ -212,3 +200,18 @@ const Tasks = () => {
 };
 
 export default Tasks;
+
+// загрузка задач с сервера
+/*  const loadTasks = () => {
+    fetch(`https://easydev.club/api/v1/todos?${status}`,
+      {method: 'GET'},)
+      .then(response => response.json())
+      .then(obj => {
+        console.log(obj.data);
+        setTasks(obj.data);
+        setInfo(obj.info)
+      })
+      .catch(error => {
+        console.error("Ошибка загрузки данных:", error);
+      });
+  }*/
