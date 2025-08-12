@@ -37,7 +37,6 @@ const AddTask = (props) => {
       .then(obj => {
         console.log("Задача добавлена и строка очищена");
         setNewTask("")
-        //вызываем функцию, чтобы обновить список с сервера
         if (putTaskList) putTaskList()
       })
   }

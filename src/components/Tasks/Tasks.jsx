@@ -36,7 +36,6 @@ const Tasks = () => {
 
   //реакция на нажатие кнопки редактировать
   function editClick(task) {
-    console.log(task.title)
     setEditIdTask(task.id)
     setEditText(task.title)
   }
@@ -61,7 +60,6 @@ const Tasks = () => {
       .then(data => {
         loadTasks()
         setEditIdTask(null)
-        console.log(data)
         console.log(`Задача обновилась на сервере`)
       })
   }
@@ -75,6 +73,7 @@ const Tasks = () => {
     checkboxTask(id, taskStatus)
       .then(data => {
         loadTasks()
+        console.log("Установился статус задачи")
       })
   }
 
@@ -107,8 +106,6 @@ const Tasks = () => {
             {editIdTask === task.id ? (
               <>
                 <input
-                  id=""
-                  name=""
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
                 />
@@ -191,7 +188,6 @@ const Tasks = () => {
 
               </>
             )}
-            {/*{task.isDone == true ? " выполнено" : " в процессе"}*/}
           </li>
         ))}
       </ul>
@@ -200,18 +196,3 @@ const Tasks = () => {
 };
 
 export default Tasks;
-
-// загрузка задач с сервера
-/*  const loadTasks = () => {
-    fetch(`https://easydev.club/api/v1/todos?${status}`,
-      {method: 'GET'},)
-      .then(response => response.json())
-      .then(obj => {
-        console.log(obj.data);
-        setTasks(obj.data);
-        setInfo(obj.info)
-      })
-      .catch(error => {
-        console.error("Ошибка загрузки данных:", error);
-      });
-  }*/

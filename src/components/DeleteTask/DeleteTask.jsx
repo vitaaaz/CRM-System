@@ -9,7 +9,7 @@ const DeleteTask = (props) => {
       type="button"
       onClick={() => deleteTask(taskId)
         .then(res => {
-          console.log("Задача удалена")
+          console.log(`Задача удалена`)
           if (putTaskList) putTaskList()
         })}
     >
@@ -29,14 +29,3 @@ const DeleteTask = (props) => {
 };
 
 export default DeleteTask;
-
-// функция удаления задачи
-/*  function deleteTask() {
-    fetch(`https://easydev.club/api/v1/todos/${taskId}`,
-      {method: 'DELETE',})
-      .then(response => {
-        console.log("Задача удалена")
-        if (putTaskList) putTaskList()
-      })
-  }*/
-

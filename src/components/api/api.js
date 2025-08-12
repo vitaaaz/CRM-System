@@ -4,9 +4,13 @@ const BASE_URL = 'https://easydev.club/api/v1/todos';
 export const fetchTasks = (query) => {
   return fetch(`${BASE_URL}?${query}`,
     {method: 'GET'},)
-    .then(response => response.json())
+    .then(response => {
+     if (!response.ok) throw new Error(`Response error: !ok`);
+     return response.json();
+    })
     .catch(error => {
       console.error("Ошибка загрузки данных:", error);
+      throw error;
     });
 }
 
@@ -16,9 +20,13 @@ export const addTask = (taskData) => {
     method: 'POST',
     body: JSON.stringify(taskData),
   })
-    .then((response) => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error(`Response error: !ok`);
+      return response.json();
+    })
     .catch((error) => {
       console.error('Ошибка при добавлении задачи:', error);
+      throw error;
     });
 };
 
@@ -39,7 +47,10 @@ export const checkboxTask = (id, taskStatus) => {
       method: 'PUT',
       body: JSON.stringify(taskStatus),
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error(`Response error: !ok`);
+      return response.json();
+    })
     .catch((error) => {
       console.error('Ошибка при изменения статуса задачи:', error);
       throw error;
@@ -53,9 +64,12 @@ export const saveEditingTask = (editIdTask, putTaskData) => {
       method: 'PUT',
       body: JSON.stringify(putTaskData),
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error(`Response error: !ok`);
+      return response.json();
+    })
     .catch((error) => {
-      console.error('Ошибка при редактировавнии задачи:', error);
+      console.error('Ошибка при редактировании задачи:', error);
       throw error;
     });
 }
