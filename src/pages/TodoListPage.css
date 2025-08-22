@@ -1,0 +1,52 @@
+.div-root {
+  position: absolute;
+  top: 0;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  display: block;
+  padding-left: 0;
+}
+
+li {
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 20px;
+  border-radius: 10px;
+  padding-inline: 5px;
+  margin-block: 5px;
+  background-color: #323232;
+  gap: 5px;
+}
+
+.container {
+  display: flex;
+  gap: 3px;
+  max-width: 300px;
+}
+
+.add-button {
+  padding: 7px 7px;
+  border: none;
+  border-radius: 2px;
+  transition: background-color 0.2s ease-in;
+}
+.add-button:hover {
+  background-color: cornflowerblue;
+}
+
+.add-input {
+  min-width: 200px;
+  padding: 5px 5px;
+}
+
+
+
+
+
+
