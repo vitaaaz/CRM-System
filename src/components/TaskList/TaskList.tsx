@@ -1,5 +1,5 @@
 import TodoItem from "../TodoItem/TodoItem";
-import {MetaResponse, Todo, TodoInfo} from "../../types/todo";
+import { Todo } from "../../types/todo";
 import {JSX} from "react";
 
 type TaskListProps = {
@@ -17,6 +17,7 @@ const TaskList = (props: TaskListProps) => {
     <ul className="task-list">
       {tasks.map((task:Todo): JSX.Element => (
         <TodoItem
+          key={task.id}
           task={task}
           loadTasks={loadTasks}
         />

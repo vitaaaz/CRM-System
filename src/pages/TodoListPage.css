@@ -11,7 +11,7 @@
   padding-left: 0;
 }
 
-li {
+.todo-item{
   max-width: 300px;
   display: flex;
   justify-content: space-between;
@@ -24,7 +24,7 @@ li {
   gap: 5px;
 }
 
-.container {
+.container-btn {
   display: flex;
   gap: 3px;
   max-width: 300px;
