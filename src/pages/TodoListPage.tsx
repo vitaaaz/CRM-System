@@ -31,7 +31,8 @@ const TodoListPage = () => {
   }, [status])
 
   return (
-    <>
+    <div className="container-todo">
+      <h1>Todo list</h1>
       <TaskFilters
         info={info}
         onSetStatus={setStatus}
@@ -41,7 +42,7 @@ const TodoListPage = () => {
         loadTasks={loadTasks}
         tasks={tasks}
       />
-    </>
+    </div>
   );
 };
 

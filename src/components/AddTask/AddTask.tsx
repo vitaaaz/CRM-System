@@ -1,6 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {addTask} from "../../api/api";
 import {TodoRequest} from "../../types/todo";
+import {Button, Form, FormProps, Input} from "antd";
 
 type AddTaskProps = {
   loadTasks: () => void;
@@ -15,8 +16,8 @@ const AddTask = (props: AddTaskProps) => {
     setNewTask(event.target.value)
   }
 
-  function postNewTask(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  function postNewTask(/*e: FormEvent<HTMLFormElement>*/) {
+    /* e.preventDefault()*/
     const trimmedTitle: string = newTask.trim()
     if (!trimmedTitle) {
       alert("Задача не может быть пустой!");
@@ -51,20 +52,45 @@ const AddTask = (props: AddTaskProps) => {
   }
 
   return (
-    <form onSubmit={postNewTask}>
-      <input
-        className="add-input"
-        placeholder="Enter new task..."
-        value={newTask}
-        onChange={handleInput}
-      />
-      <button
-        className="add-button"
-        type="submit"
+    <>
+      <Form
+        className="add-form"
+        onFinish={postNewTask}
+        initialValues={{remember: true}}
       >
-        Add
-      </button>
-    </form>
+        <Form.Item
+          rules={[{required: true, message: 'Please enter new task!'}]}
+        >
+          <Input
+            value={newTask}
+            onChange={handleInput}
+          />
+        </Form.Item>
+        <Form.Item label={null}>
+          <Button
+            type="primary"
+            htmlType="submit"
+          >
+            Add
+          </Button>
+        </Form.Item>
+      </Form>
+      {/*<form onSubmit={postNewTask}>
+        <input
+          className="add-input"
+          placeholder="Enter new task..."
+          value={newTask}
+          onChange={handleInput}
+        />
+        <button
+          className="add-button"
+          type="submit"
+        >
+          Add
+        </button>
+      </form>*/}
+    </>
+
   );
 };
 

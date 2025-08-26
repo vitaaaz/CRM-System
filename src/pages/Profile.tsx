@@ -1,8 +1,11 @@
 const Profile = () => {
   return (
-    <h1>
-      ПРИВЕТ БРО
-    </h1>
+    <div className="container-todo">
+      <h1>
+        ПРИВЕТ БРО
+      </h1>
+    </div>
+
   );
 };
 
