@@ -11,28 +11,15 @@ const AddTask = (props: AddTaskProps) => {
   //принимаем функцию загрузки задач из пропса
   const {loadTasks} = props
   const [newTask, setNewTask] = useState<string>("")
+  const [form] = Form.useForm();
+
 
   function handleInput(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value)
   }
 
-  function postNewTask(/*e: FormEvent<HTMLFormElement>*/) {
-    /* e.preventDefault()*/
+  function postNewTask() {
     const trimmedTitle: string = newTask.trim()
-    /*   if (!trimmedTitle) {
-         alert("Задача не может быть пустой!");
-         return;
-       }
-
-       if (trimmedTitle.length <= 2) {
-         alert("Требуется ввести от 2 до 64 символов");
-         return;
-       }
-
-       if (trimmedTitle.length > 64) {
-         alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${trimmedTitle.length}`);
-         return;
-       }*/
 
     const taskData: TodoRequest = {
       title: trimmedTitle,
@@ -43,6 +30,7 @@ const AddTask = (props: AddTaskProps) => {
       .then(() => {
         console.log("Задача добавлена и строка очищена");
         setNewTask("")
+        form.resetFields();
         if (loadTasks) loadTasks()
       })
       .catch((error) => {
@@ -54,6 +42,7 @@ const AddTask = (props: AddTaskProps) => {
   return (
     <>
       <Form
+        form={form}
         className="add-form"
         onFinish={postNewTask}
         initialValues={{remember: true}}

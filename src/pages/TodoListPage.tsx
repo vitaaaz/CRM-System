@@ -18,10 +18,11 @@ const TodoListPage = () => {
   //загрузка задач после запроса с сервера
   const loadTasks = (): void => {
     fetchTasks(status)
-      .then((obj: MetaResponse<Todo, TodoInfo>) => {
-        console.log(obj.data);
-        setInfo(obj.info)
-        setTasks(obj.data);
+      .then((obj) => {
+        console.log(obj.data.data);
+        //тут было setInfo(obj.info)
+        setInfo(obj.data.info)
+        setTasks(obj.data.data);
       })
   }
 
