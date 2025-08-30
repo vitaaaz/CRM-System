@@ -56,9 +56,9 @@ const AddTask = (props: AddTaskProps) => {
               validateTrigger: 'onSubmit'
             },
             {
-              min: 3,
+              min: 2,
               max: 64,
-              message: 'Задача должна быть от 3 до 64 символов.',
+              message: 'Задача должна быть от 2 до 64 символов.',
               validateTrigger: 'onSubmit',
             }
           ]}

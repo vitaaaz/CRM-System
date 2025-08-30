@@ -27,8 +27,10 @@ const TodoListPage = () => {
   }
 
   useEffect((): void => {
-    loadTasks()
-    console.log("TODO PAGE: Успех. Все задачи загружены!")
+    const intervalId = setInterval(loadTasks, 5000);
+    loadTasks(); // ← вызов при старте
+
+    return () => clearInterval(intervalId);
   }, [status])
 
   return (
