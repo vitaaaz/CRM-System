@@ -26,10 +26,11 @@ const TodoListPage = () => {
       })
   }
 
-  useEffect((): void => {
-    loadTasks()
-    console.log("TODO PAGE: Успех. Все задачи загружены!")
-  }, [status])
+  useEffect(() => {
+    const id = setInterval(loadTasks, 5000);
+    loadTasks();
+    return () => clearInterval(id);
+  }, [status]);
 
   return (
     <div className="container-todo">
