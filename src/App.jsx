@@ -1,10 +1,14 @@
-import TodoListPage from "./pages/TodoListPage";
+import TodoListPage from "./pages/TodoListPage/TodoListPage";
 import {Menu} from "antd";
 import {MailOutlined} from "@ant-design/icons";
 import {Link, Route, Routes} from "react-router-dom";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
+import {useLocation} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 function App() {
+  const [selectedKey, setSelectedKey] = useState('1');
+  const location = useLocation();
 
   const items = [
     {
@@ -17,12 +21,19 @@ function App() {
       ],
     },
   ]
+  useEffect(() => {
+      if (location.pathname === '/profile') {
+        setSelectedKey('2');
+      } else {
+        setSelectedKey('1');
+      }
+    }, [location.pathname]);
 
   return (
     <div className="container">
       <Menu
         className="menu-nav"
-        defaultSelectedKeys={['1']}
+        selectedKeys={[selectedKey]}
         defaultOpenKeys={['sub1']}
         mode="inline"
         theme="dark"

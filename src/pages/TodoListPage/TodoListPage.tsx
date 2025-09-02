@@ -1,10 +1,10 @@
 import {useState, useEffect} from "react";
 import "./TodoListPage.css"
-import AddTask from "../components/AddTask/AddTask";
-import {fetchTasks} from "../api/api";
-import TaskFilters from "../components/TaskFilters/TaskFilters";
-import TaskList from "../components/TaskList/TaskList";
-import {Todo, TodoInfo, MetaResponse} from "../types/todo";
+import AddTask from "../../components/AddTask/AddTask";
+import {fetchTasks} from "../../api/api";
+import TaskFilters from "../../components/TaskFilters/TaskFilters";
+import TaskList from "../../components/TaskList/TaskList";
+import {Todo, TodoInfo, MetaResponse} from "../../types/todo";
 
 const TodoListPage = () => {
   const [tasks, setTasks] = useState<Todo[]>([])
