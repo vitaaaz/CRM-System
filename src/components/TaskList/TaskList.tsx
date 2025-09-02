@@ -1,6 +1,6 @@
 import TodoItem from "../TodoItem/TodoItem";
 import { Todo } from "../../types/todo";
-import {JSX} from "react";
+import {JSX, memo} from "react";
 
 type TaskListProps = {
   tasks: Todo[]
@@ -26,4 +26,4 @@ const TaskList = (props: TaskListProps) => {
   );
 };
 
-export default TaskList;
+export default memo(TaskList);

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import "./TodoListPage.css"
 import AddTask from "../../components/AddTask/AddTask";
 import {fetchTasks} from "../../api/api";
@@ -16,7 +16,7 @@ const TodoListPage = () => {
   })
 
   //загрузка задач после запроса с сервера
-  const loadTasks = (): void => {
+  const loadTasks = useCallback((): void => {
     fetchTasks(status)
       .then((obj) => {
         console.log(obj.data.data);
@@ -24,13 +24,13 @@ const TodoListPage = () => {
         setInfo(obj.data.info)
         setTasks(obj.data.data);
       })
-  }
+  }, [status])
 
   useEffect(() => {
     const id = setInterval(loadTasks, 5000);
     loadTasks();
     return () => clearInterval(id);
-  }, [status]);
+  }, [loadTasks]);
 
   return (
     <div className="container-todo">

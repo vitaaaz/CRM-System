@@ -1,5 +1,5 @@
 import {deleteTask, changeTaskData} from "../../api/api";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useCallback, useState, memo} from "react";
 import {Todo, TodoRequest} from "../../types/todo";
 import {Button, Checkbox, Input} from "antd";
 import {
@@ -23,13 +23,13 @@ const TodoItem = (props: TodoItemProps) => {
   } = props
 
   //реакция на нажатие кнопки редактировать
-  const editClick = (task: Todo): void => {
+  const editClick = useCallback((task: Todo): void => {
     setEditIdTask(task.id)
     setEditText(task.title)
-  }
+  }, [])
 
   //сохранение задачи(ред) и отправка на сервер методом put
-  const saveTask = (): void => {
+  const saveTask = useCallback((): void => {
     if (editText.length <= 2) {
       alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${editText.length}`);
       return;
@@ -50,10 +50,10 @@ const TodoItem = (props: TodoItemProps) => {
         setEditIdTask(null)
         console.log(`Задача обновилась на сервере`)
       })
-  }
+  }, [editText, editIdTask, changeTaskData, loadTasks])
 
   //управление чекбоксом
-  const handleToggle = (title: string, id: number, isDone: boolean): void => {
+  const handleToggle = useCallback((title: string, id: number, isDone: boolean): void => {
     const taskStatus = {
       title: title.trim(),
       isDone: !isDone,
@@ -63,15 +63,15 @@ const TodoItem = (props: TodoItemProps) => {
         loadTasks()
         console.log("Поменялся статус задачи")
       })
-  }
+  }, [changeTaskData, loadTasks])
 
-  const deleteTaskFunction = () => {
+  const deleteTaskFunction = useCallback(() => {
     deleteTask(task.id)
       .then(() => {
         console.log(`Задача удалена`)
         if (loadTasks) loadTasks()
       })
-  }
+  }, [task.id, deleteTask, loadTasks])
 
   return (
     <li className="todo-item">
@@ -91,10 +91,10 @@ const TodoItem = (props: TodoItemProps) => {
               icon={<CloseOutlined />}
             />
             <Button
-            icon={<CheckOutlined />}
-            type="primary"
-            className="inner-button edit-button"
-            onClick={saveTask}
+              icon={<CheckOutlined />}
+              type="primary"
+              className="inner-button edit-button"
+              onClick={saveTask}
             />
           </div>
         </>
@@ -109,7 +109,9 @@ const TodoItem = (props: TodoItemProps) => {
             <Button
               type="primary"
               icon={<EditOutlined />}
-              onClick={() => {editClick(task)}}
+              onClick={() => {
+                editClick(task)
+              }}
               className='inner-button edit-button'
             />
             <Button
@@ -125,4 +127,4 @@ const TodoItem = (props: TodoItemProps) => {
   );
 };
 
-export default TodoItem;
+export default memo(TodoItem);
