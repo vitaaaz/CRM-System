@@ -6,26 +6,36 @@ import Profile from "./pages/Profile/Profile";
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
-function App() {
-  const [selectedKey, setSelectedKey] = useState('1');
+type Items = {
+    key: string
+    label: string
+    icon: React.JSX.Element
+    children: {
+      key: string
+      label: React.JSX.Element
+    }[]
+}
+
+function App(): React.JSX.Element {
+  const [selectedKey, setSelectedKey] = useState<string>('1');
   const location = useLocation();
 
-  const items = [
+  const items: Items[] = [
     {
-      key: 'sub1',
+      key: 'navigation',
       label: 'Navigation',
       icon: <MailOutlined />,
       children: [
-        { key: '1', label: <Link to="/">Home</Link>},
-        { key: '2', label: <Link to="/profile">Profile</Link> },
+        { key: 'home', label: <Link to="/">Home</Link>},
+        { key: 'profile', label: <Link to="/profile">Profile</Link> },
       ],
     },
   ]
   useEffect(() => {
       if (location.pathname === '/profile') {
-        setSelectedKey('2');
+        setSelectedKey('profile');
       } else {
-        setSelectedKey('1');
+        setSelectedKey('home');
       }
     }, [location.pathname]);
 
@@ -34,7 +44,7 @@ function App() {
       <Menu
         className="menu-nav"
         selectedKeys={[selectedKey]}
-        defaultOpenKeys={['sub1']}
+        defaultOpenKeys={['navigation']}
         mode="inline"
         theme="dark"
         items={items}
