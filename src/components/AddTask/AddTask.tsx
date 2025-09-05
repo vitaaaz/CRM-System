@@ -1,6 +1,6 @@
 import {ChangeEvent, useState} from "react";
-import {addTask} from "../../api/api";
-import {TodoRequest} from "../../types/todo";
+import {addTask} from "@/api/api";
+import {TodoRequest} from "@/types/todo";
 import {Button, Form, Input} from "antd";
 
 type AddTaskProps = {
@@ -12,6 +12,8 @@ const AddTask = (props: AddTaskProps) => {
   const {loadTasks} = props
   const [newTask, setNewTask] = useState<string>("")
   const [form] = Form.useForm();
+  const MIN_TASK_NAME_LENGTH = 2
+  const MAX_TASK_NAME_LENGTH = 64
 
 
   function handleInput(event: ChangeEvent<HTMLInputElement>) {
@@ -56,8 +58,8 @@ const AddTask = (props: AddTaskProps) => {
               validateTrigger: 'onSubmit'
             },
             {
-              min: 2,
-              max: 64,
+              min: MIN_TASK_NAME_LENGTH,
+              max: MAX_TASK_NAME_LENGTH,
               message: 'Задача должна быть от 2 до 64 символов.',
               validateTrigger: 'onSubmit',
             }
@@ -67,7 +69,7 @@ const AddTask = (props: AddTaskProps) => {
             placeholder="Enter new task"
             value={newTask}
             onChange={handleInput}
-            onPressEnter
+            //onKeyDown
           />
         </Form.Item>
         <Form.Item label={null}>

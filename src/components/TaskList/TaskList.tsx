@@ -1,5 +1,5 @@
 import TodoItem from "../TodoItem/TodoItem";
-import { Todo } from "../../types/todo";
+import { Todo } from "@/types/todo";
 import {JSX, memo} from "react";
 
 type TaskListProps = {

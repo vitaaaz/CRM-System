@@ -1,6 +1,6 @@
-import {deleteTask, changeTaskData} from "../../api/api";
+import {deleteTask, changeTaskData} from "@/api/api";
 import {ChangeEvent, useCallback, useState, memo} from "react";
-import {Todo, TodoRequest} from "../../types/todo";
+import {Todo, TodoRequest} from "@/types/todo";
 import {Button, Checkbox, Input} from "antd";
 import {
   CheckOutlined,
@@ -23,10 +23,10 @@ const TodoItem = (props: TodoItemProps) => {
   } = props
 
   //реакция на нажатие кнопки редактировать
-  const editClick = useCallback((task: Todo): void => {
+  const editClick = (task: Todo): void => {
     setEditIdTask(task.id)
     setEditText(task.title)
-  }, [])
+  }
 
   //сохранение задачи(ред) и отправка на сервер методом put
   const saveTask = useCallback((): void => {
@@ -44,16 +44,18 @@ const TodoItem = (props: TodoItemProps) => {
       isDone: false,
     };
 
-    changeTaskData(editIdTask, updateTaskData)
-      .then(() => {
-        loadTasks()
-        setEditIdTask(null)
-        console.log(`Задача обновилась на сервере`)
-      })
+    if (editIdTask !== null) {
+      changeTaskData(editIdTask, updateTaskData)
+        .then(() => {
+          loadTasks()
+          setEditIdTask(null)
+          console.log(`Задача обновилась на сервере`)
+        });
+    }
   }, [editText, editIdTask, changeTaskData, loadTasks])
 
   //управление чекбоксом
-  const handleToggle = useCallback((title: string, id: number, isDone: boolean): void => {
+  const handleToggle =(title: string, id: number, isDone: boolean): void => {
     const taskStatus = {
       title: title.trim(),
       isDone: !isDone,
@@ -63,7 +65,7 @@ const TodoItem = (props: TodoItemProps) => {
         loadTasks()
         console.log("Поменялся статус задачи")
       })
-  }, [changeTaskData, loadTasks])
+  }
 
   const deleteTaskFunction = useCallback(() => {
     deleteTask(task.id)

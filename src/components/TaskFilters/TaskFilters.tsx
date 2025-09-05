@@ -1,10 +1,10 @@
 import './TaskFilters.css'
-import {TodoInfo} from "../../types/todo";
+import {Status, TodoInfo} from "@/types/todo";
 import {Tabs, TabsProps} from "antd";
 
 
 type TaskFiltersProps = {
-  onSetStatus: (status: "all" | "completed" | "inWork") => void;
+  onSetStatus: (status: Status) => void;
   info: TodoInfo;
 }
 
@@ -14,8 +14,10 @@ const TaskFilters = (props: TaskFiltersProps) => {
     info,
   } = props
 
-  const onChange = (key: "all" | "completed" | "inWork") => {
-    onSetStatus(key);
+  const onChange = (key: string) => {
+    if (key === "all" || key === "completed" || key === "inWork") {
+      onSetStatus(key as Status);
+    }
   };
 
   const items: TabsProps['items'] = [
