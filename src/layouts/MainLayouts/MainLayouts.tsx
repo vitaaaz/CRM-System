@@ -1,7 +1,13 @@
+import {Outlet} from "react-router-dom";
+import Sidebar from "@/components/Sidebar/Sidebar";
+
 const MainLayouts = () => {
   return (
-    <div>
-
+    <div className="container">
+      <Sidebar/>
+      <main>
+        <Outlet/>
+      </main>
     </div>
   );
 };

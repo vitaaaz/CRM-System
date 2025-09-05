@@ -9,7 +9,7 @@ import {
 import {StrictMode} from "react";
 
 /*const router = createBrowserRouter([
-  {path: "/", element: <App/>},
+  {path: "/", element: <TodoListPage/>},
   {path: "/profile", element: <Profile/>},
 ])*/
 
