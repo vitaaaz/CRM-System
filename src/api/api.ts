@@ -1,7 +1,7 @@
-import {TodoRequest} from "../types/todo";
+import {Status, TodoRequest} from "../types/todo";
 import api from './axiosInstance'
 
-export const fetchTasks = (status: "all" | "completed" | "inWork") => {
+export const fetchTasks = (status: Status) => {
   return api.get('/todos', {
     params: {
       filter: status,
