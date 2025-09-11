@@ -1,6 +1,7 @@
-import {ChangeEvent, FormEvent, useState} from "react";
-import {addTask} from "../../api/api";
-import {TodoRequest} from "../../types/todo";
+import {ChangeEvent, useState} from "react";
+import {addTask} from "@/api/api";
+import {TodoRequest} from "@/types/todo";
+import {Button, Form, Input} from "antd";
 
 type AddTaskProps = {
   loadTasks: () => void;
@@ -10,28 +11,17 @@ const AddTask = (props: AddTaskProps) => {
   //принимаем функцию загрузки задач из пропса
   const {loadTasks} = props
   const [newTask, setNewTask] = useState<string>("")
+  const [form] = Form.useForm();
+  const MIN_TASK_NAME_LENGTH = 2
+  const MAX_TASK_NAME_LENGTH = 64
+
 
   function handleInput(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value)
   }
 
-  function postNewTask(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  function postNewTask() {
     const trimmedTitle: string = newTask.trim()
-    if (!trimmedTitle) {
-      alert("Задача не может быть пустой!");
-      return;
-    }
-
-    if (trimmedTitle.length <= 2) {
-      alert("Требуется ввести от 2 до 64 символов");
-      return;
-    }
-
-    if (trimmedTitle.length > 64) {
-      alert(`Требуется ввести от 2 до 64 символов. Вы ввели ${trimmedTitle.length}`);
-      return;
-    }
 
     const taskData: TodoRequest = {
       title: trimmedTitle,
@@ -42,6 +32,7 @@ const AddTask = (props: AddTaskProps) => {
       .then(() => {
         console.log("Задача добавлена и строка очищена");
         setNewTask("")
+        form.resetFields();
         if (loadTasks) loadTasks()
       })
       .catch((error) => {
@@ -51,20 +42,46 @@ const AddTask = (props: AddTaskProps) => {
   }
 
   return (
-    <form onSubmit={postNewTask}>
-      <input
-        className="add-input"
-        placeholder="Enter new task..."
-        value={newTask}
-        onChange={handleInput}
-      />
-      <button
-        className="add-button"
-        type="submit"
+    <>
+      <Form
+        form={form}
+        className="add-form"
+        onFinish={postNewTask}
+        initialValues={{remember: true}}
       >
-        Add
-      </button>
-    </form>
+        <Form.Item
+          name="title"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter new task!',
+              validateTrigger: 'onSubmit'
+            },
+            {
+              min: MIN_TASK_NAME_LENGTH,
+              max: MAX_TASK_NAME_LENGTH,
+              message: 'Задача должна быть от 2 до 64 символов.',
+              validateTrigger: 'onSubmit',
+            }
+          ]}
+        >
+          <Input
+            placeholder="Enter new task"
+            value={newTask}
+            onChange={handleInput}
+          />
+        </Form.Item>
+        <Form.Item label={null}>
+          <Button
+            type="primary"
+            htmlType="submit"
+          >
+            Add
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
+
   );
 };
 

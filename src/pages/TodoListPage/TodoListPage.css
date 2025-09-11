@@ -1,7 +1,3 @@
-.div-root {
-  position: absolute;
-  top: 0;
-}
 
 .task-list {
   display: flex;
@@ -11,7 +7,7 @@
   padding-left: 0;
 }
 
-li {
+.todo-item{
   max-width: 300px;
   display: flex;
   justify-content: space-between;
@@ -24,11 +20,17 @@ li {
   gap: 5px;
 }
 
-.container {
+.container-btn {
   display: flex;
   gap: 3px;
   max-width: 300px;
 }
+.container-todo {
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+}
+
 
 .add-button {
   padding: 7px 7px;
@@ -45,7 +47,9 @@ li {
   padding: 5px 5px;
 }
 
-
+.add-form {
+  display: flex;
+}
 
 
 

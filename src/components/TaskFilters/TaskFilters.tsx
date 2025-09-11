@@ -1,55 +1,44 @@
-import {TodoInfo} from "../../types/todo";
-import Tab from "../../UI/Tab/Tab";
-import {useState} from "react";
+import './TaskFilters.css'
+import {Status, TodoInfo} from "@/types/todo";
+import {Tabs, TabsProps} from "antd";
+
 
 type TaskFiltersProps = {
-  onSetStatus: (status: ("all" | "completed" | "inWork")) => void;
+  onSetStatus: (status: Status) => void;
   info: TodoInfo;
 }
 
 const TaskFilters = (props: TaskFiltersProps) => {
-  const [activeTab, setActiveTab] = useState<"All" | "InWork" | "Completed">("All")
   const {
     onSetStatus,
     info,
   } = props
 
+  const onChange = (key: string) => {
+    if (key === "all" || key === "completed" || key === "inWork") {
+      onSetStatus(key as Status);
+    }
+  };
+
+  const items: TabsProps['items'] = [
+    {
+      key: 'all',
+      label: `ALL(${info.all})`,
+    },
+    {
+      key: 'inWork',
+      label: `IN WORK(${info.inWork})`,
+    },
+    {
+      key: 'completed',
+      label: `COMPLETED(${info.completed})`,
+    },
+  ];
   return (
-    <div className="status-bar">
-      <Tab
-        className="status-button"
-        type="button"
-        onClick={(): void => {
-          onSetStatus("all")
-          setActiveTab("All")
-        }}
-        isActive={activeTab === "All"}
-        title={`All(${info.all})`}
-      >
-      </Tab>
-      <Tab
-        className="status-button"
-        type="button"
-        onClick={(): void => {
-          onSetStatus("inWork")
-          setActiveTab("InWork")
-        }}
-        isActive={activeTab === "InWork"}
-        title={`In work(${info.inWork})`}
-      >
-      </Tab>
-      <Tab
-        className="status-button"
-        type="button"
-        onClick={(): void => {
-          onSetStatus("completed")
-          setActiveTab("Completed")
-        }}
-        isActive={activeTab === "Completed"}
-        title={`Completed(${info.completed})`}
-      >
-      </Tab>
-    </div>
+    <>
+      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+    </>
+
   );
 };
 
