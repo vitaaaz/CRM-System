@@ -26,9 +26,12 @@ interface MetaResponse<T, N> {
   }
 }
 
-export {
+type Status = "all" | "completed" | "inWork"
+
+export type {
   TodoRequest,
   Todo,
   TodoInfo,
   MetaResponse,
+  Status
 }
