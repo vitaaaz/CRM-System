@@ -69,7 +69,6 @@ const AddTask = (props: AddTaskProps) => {
             placeholder="Enter new task"
             value={newTask}
             onChange={handleInput}
-            //onKeyDown
           />
         </Form.Item>
         <Form.Item label={null}>
