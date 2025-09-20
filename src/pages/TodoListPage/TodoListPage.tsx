@@ -4,7 +4,9 @@ import AddTask from "@/components/AddTask/AddTask";
 import {fetchTasks} from "@/api/api";
 import TaskFilters from "@/components/TaskFilters/TaskFilters";
 import TaskList from "@/components/TaskList/TaskList";
-import {Todo, TodoInfo, MetaResponse, Status} from "@/types/todo";
+import {Todo, TodoInfo, Status} from "@/types/todo";
+import Counter from "@/components/testToken";
+import Token from "@/components/testToken";
 
 const TodoListPage = () => {
   const [tasks, setTasks] = useState<Todo[]>([])
@@ -35,6 +37,7 @@ const TodoListPage = () => {
   return (
     <div className="container-todo">
       <h1>Todo list</h1>
+      <Token/> {/*не забыть удалить счетчик*/}
       <TaskFilters
         info={info}
         onSetStatus={setStatus}

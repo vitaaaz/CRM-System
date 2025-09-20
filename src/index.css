@@ -1,4 +1,12 @@
 :root {
+  min-height: 100vh; /* Занимает всю высоту окна */
+  display: flex;     /* Включаем Flexbox */
+  justify-content: center; /* Центрируем по горизонтали */
+  align-items: center; /* Центрируем по вертикали */
+
+
+
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -17,7 +25,7 @@ body {
   margin: 0;
   display: flex;
   min-width: 320px;
-  min-height: 100vh;
+
 }
 
 h1 {

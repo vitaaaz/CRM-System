@@ -4,8 +4,8 @@ import Profile from "./pages/Profile/Profile";
 import MainLayouts from "@/layouts/MainLayouts/MainLayouts";
 import NotFoundPage from "@/pages/NotFoundPage/NotFoundPage";
 import AuthLayouts from "@/layouts/AuthLayouts/AuthLayouts";
-import Authorization from "@/pages/Authorization/Authorization";
-import Registration from "@/pages/Registration/Registration";
+import AuthorizationPage from "@/pages/AuthorizationPage/AuthorizationPage";
+import RegistrationPage from "@/pages/RegistrationPage/RegistrationPage";
 
 function App(): React.JSX.Element {
   return (
@@ -15,11 +15,10 @@ function App(): React.JSX.Element {
         <Route path="profile" element={<Profile />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Route>
-{/*      <Route path="/authorization" element={<AuthLayouts/>}>
-        <Route index element={<Authorization/>}/>
-        <Route path="registration" element={<Registration/>}/>
-      </Route>*/}
-
+      <Route path="/authorization" element={<AuthLayouts/>}>
+        <Route index element={<AuthorizationPage/>}/>
+        <Route path="registration" element={<RegistrationPage/>}/>
+      </Route>
     </Routes>
   )
 }
