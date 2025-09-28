@@ -34,8 +34,17 @@ export const signIn = (signInReqBody: AuthData) => {
   return api.post('/auth/signin', signInReqBody)
 }
 
-// export const getToken = (token: Token) => {
-//   return api.post('/auth/refresh', token)
-// }
+export const getTokens = (token : any) => {
+  return api.post('/auth/refresh', token)
+}
+
+export const logout = () => {
+  return api.post('/user/logout')
+}
+
+export const userProfile =() => {
+  return api.get('/user/profile')
+}
+
 
 

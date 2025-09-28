@@ -1,8 +1,8 @@
 :root {
-  min-height: 100vh; /* Занимает всю высоту окна */
-  display: flex;     /* Включаем Flexbox */
-  justify-content: center; /* Центрируем по горизонтали */
-  align-items: center; /* Центрируем по вертикали */
+  /*min-height: 100vh; !* Занимает всю высоту окна *!*/
+  /*display: flex;     !* Включаем Flexbox *!*/
+  /*justify-content: center; !* Центрируем по горизонтали *!*/
+  /*align-items: center; !* Центрируем по вертикали *!*/
 
 
 
@@ -23,9 +23,11 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
   min-width: 320px;
-
 }
 
 h1 {

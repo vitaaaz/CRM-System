@@ -5,19 +5,17 @@ import {JSX, useState} from "react";
 import {signIn} from "@/api/api";
 import type {ReactNode} from "react";
 import {AuthData} from "@/types/authorization";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "@/state/store";
-import {setToken} from "@/state/token/tokenSlice";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/state/store";
+import {setAuthState} from "@/state/Auth/tokenSlice";
+import {tokenStorage} from "@/tokenStorage/tokenStorage";
+
 
 const AuthorizationForm = (): JSX.Element => {
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>()
-/*  const token = useSelector((state: RootState) => ({
-    accessToken: state.auth.accessToken,
-    refreshToken: state.auth.refreshToken,
-  }));*/
 
   const successMessage: ReactNode = (
     <>
@@ -26,7 +24,6 @@ const AuthorizationForm = (): JSX.Element => {
       <Link to="/">Sign In</Link>
     </>
   );
-
 
   const handleSignIn = async ({login, password}: AuthData) => {
     const signInReqBody = {
@@ -37,22 +34,20 @@ const AuthorizationForm = (): JSX.Element => {
       setIsSuccess(false);
       setIsLoading(true);
       const response = await signIn(signInReqBody);
-      //закидываем 2 токена в глобальное состояние
-      dispatch(setToken({
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
-      }))
-      //сохраняем токен доступа access в localstorage
-      localStorage.setItem('token', response.data.accessToken)
 
-      console.log(response)
-      console.log(response.data);
-      console.log(localStorage.getItem('token'))
+      //сохраняем 2 токена
+      tokenStorage.setToken(response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken)
+
+      //меняем состояние авторизации в глобал состоянии
+      dispatch(setAuthState(true))
+      // dispatch(clearAuthState());
 
       setIsSuccess(true);
       form.resetFields();
     } catch (error) {
-      alert(error)
+      alert("Неверный данные!")
+      console.log(error)
       setIsSuccess(false);
     } finally {
       setIsLoading(false);

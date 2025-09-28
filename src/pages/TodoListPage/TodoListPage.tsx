@@ -5,8 +5,6 @@ import {fetchTasks} from "@/api/api";
 import TaskFilters from "@/components/TaskFilters/TaskFilters";
 import TaskList from "@/components/TaskList/TaskList";
 import {Todo, TodoInfo, Status} from "@/types/todo";
-import Counter from "@/components/testToken";
-import Token from "@/components/testToken";
 
 const TodoListPage = () => {
   const [tasks, setTasks] = useState<Todo[]>([])
@@ -21,8 +19,6 @@ const TodoListPage = () => {
   const loadTasks = useCallback((): void => {
     fetchTasks(status)
       .then((obj) => {
-        console.log(obj.data.data);
-        //тут было setInfo(obj.info)
         setInfo(obj.data.info)
         setTasks(obj.data.data);
       })
@@ -37,7 +33,6 @@ const TodoListPage = () => {
   return (
     <div className="container-todo">
       <h1>Todo list</h1>
-      <Token/> {/*не забыть удалить счетчик*/}
       <TaskFilters
         info={info}
         onSetStatus={setStatus}
