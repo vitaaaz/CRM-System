@@ -1,9 +1,8 @@
-import {Alert, Button, Form, Input} from "antd";
+import {Button, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {JSX, useState} from "react";
 import {signIn} from "@/api/api";
-import type {ReactNode} from "react";
 import {AuthData} from "@/types/authorization";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/state/store";
@@ -16,14 +15,6 @@ const AuthorizationForm = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>()
-
-  const successMessage: ReactNode = (
-    <>
-      <p>Вы успешно авторизовались!</p>
-      <p>Нажмите чтобы перейти на главную страницу</p>
-      <Link to="/">Sign In</Link>
-    </>
-  );
 
   const handleSignIn = async ({login, password}: AuthData) => {
     const signInReqBody = {
@@ -100,15 +91,8 @@ const AuthorizationForm = (): JSX.Element => {
       </Form>
 
       {isSuccess && (
-        <Alert
-          message="Success"
-          description={successMessage}
-          type="success"
-          showIcon
-          style={{width: '100%'}}
-        />
+        <Navigate to ='/' />
       )}
-
     </>
   );
 };

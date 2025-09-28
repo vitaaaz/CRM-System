@@ -8,6 +8,7 @@ const Logout = () => {
   const exitSistem = async() => {
     try {
       await logout()
+      localStorage.removeItem('refreshToken')
       navigate("/authorization");
     }
     catch(error) {
