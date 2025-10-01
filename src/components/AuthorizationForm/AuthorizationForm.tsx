@@ -5,8 +5,8 @@ import {JSX, useState} from "react";
 import {signIn} from "@/api/api";
 import {AuthData} from "@/types/authorization";
 import {useDispatch} from "react-redux";
-import {AppDispatch} from "@/state/store";
-import {setAuthState} from "@/state/Auth/tokenSlice";
+import {AppDispatch} from "@/store/store";
+import {setAuthState} from "@/store/Auth/tokenSlice";
 import {tokenStorage} from "@/tokenStorage/tokenStorage";
 
 

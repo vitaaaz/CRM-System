@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import api from "@/api/axiosInstance";
 import {tokenStorage} from "@/tokenStorage/tokenStorage";
-import {clearAuthState, setAuthState} from "@/state/Auth/tokenSlice";
+import {clearAuthState, setAuthState} from "@/store/Auth/tokenSlice";
 
 
 const ProtectedRoutes = () => {
