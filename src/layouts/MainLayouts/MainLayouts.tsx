@@ -4,9 +4,9 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 const MainLayouts = () => {
   return (
     <div className="container">
-      <Sidebar/>
+      <Sidebar />
       <main>
-        <Outlet/>
+        <Outlet />
       </main>
     </div>
   );
