@@ -2,9 +2,9 @@ import {useEffect, useState} from "react";
 import {userProfile} from "@/api/api";
 
 const UserProfile = () => {
-  const [userName, setUserName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [phoneNumber, setPhoneNumber] = useState(null)
+  const [userName, setUserName] = useState<null | string>(null)
+  const [email, setEmail] = useState<null | string>(null)
+  const [phoneNumber, setPhoneNumber] = useState<null | string>(null)
 
   useEffect(() => {
     userProfile()

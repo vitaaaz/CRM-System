@@ -5,7 +5,7 @@ const Profile = () => {
   return (
     <div className="container-todo">
       <h1>
-        ПРИВЕТ БРО
+        Профиль
       </h1>
       <Logout/>
       <UserProfile/>

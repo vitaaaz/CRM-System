@@ -4,12 +4,13 @@ import {useEffect, useState} from "react";
 import api from "@/api/axiosInstance";
 import {tokenStorage} from "@/tokenStorage/tokenStorage";
 import {clearAuthState, setAuthState} from "@/store/Auth/tokenSlice";
+import {AppDispatch, RootState} from "@/store/store";
 
 
 const ProtectedRoutes = () => {
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true); // - флаг загрузки
-  const authState = useSelector((state) => state.auth.authState);
+  const dispatch = useDispatch<AppDispatch>();
+  const [isLoading, setIsLoading] = useState<boolean>(true); // - флаг загрузки
+  const authState = useSelector((state: RootState) => state.auth.authState);
 
   useEffect(() => {
     const initAuth = async () => {
